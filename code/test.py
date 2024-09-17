@@ -54,4 +54,3 @@ def test_data_logic(sample_data):
     # Ensure loc_type only contains known valid types
     valid_loc_types = ['Beach', 'Lake', 'River', 'Ocean']
     assert sample_data['loc_type'].isin(valid_loc_types).all(), "Invalid loc_type found."
-
