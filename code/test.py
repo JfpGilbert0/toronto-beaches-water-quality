@@ -1,20 +1,13 @@
+# Import packages
 import pandas as pd
 import pytest
+
+# Testing is done using pytest, to test the cleaned data run `pytest code/test.py` in terminal`
 
 # Sample test dataset creation
 @pytest.fixture
 def sample_data():
-    data = {
-        'beachid': [1, 2, 3],
-        'beachname': ['Beach A', 'Beach B', 'Beach C'],
-        'sitename': ['Site 1', 'Site 2', 'Site 3'],
-        'collectiondate': ['2023-09-10', '2023-09-11', '2023-09-12'],
-        'ecoli': [10.5, 20.3, -1.0],  # one invalid value
-        'comments': ['Clean', 'Moderate', None],
-        'loc_type': ['Beach', 'Lake', 'River'],
-        'longitude': [-79.3832, -79.2, 200.0],  # one invalid value
-        'latitude': [43.6532, 43.7, 90.0]  # one edge case
-    }
+    data = pd.read_csv("data/cleaned_water_quality_data.csv")
     df = pd.DataFrame(data)
     df['collectiondate'] = pd.to_datetime(df['collectiondate'])  # Convert to datetime
     return df
@@ -52,5 +45,5 @@ def test_non_null_values(sample_data):
 # Test for valid data logic (custom logic as needed)
 def test_data_logic(sample_data):
     # Ensure loc_type only contains known valid types
-    valid_loc_types = ['Beach', 'Lake', 'River', 'Ocean']
+    valid_loc_types = ['Point']
     assert sample_data['loc_type'].isin(valid_loc_types).all(), "Invalid loc_type found."
