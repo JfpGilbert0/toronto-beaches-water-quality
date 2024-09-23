@@ -1,4 +1,70 @@
+---
+title: "Water Quality at Toronto Beaches"
+subtitle: "An analysis of e-coli rates in toronto beaches 2007-2024"
+author: 
+  - Jacob Gilbert
+thanks: "Code and data are available at: https://github.com/JfpGilbert0/toronto-beaches-water-quality."
+date: today
+date-format: long
+abstract: ""
+format: pdf
+---
 
+```{python}
+#| echo: false
+# import dependancies
+import jupyter
+```
+# Introduction
+
+## Referencing
+
+# Data
+
+## Data Source
+Opendatatoronto is a publicly available collection of wide ranges of data. This resource was used to obtain the e-coli levels of the water at two of Toronto's many beaches. The data set included coli levels from the SunnySide and Marie Curtis park east beaches, from the 3rd of July 2007 to September 5th 2024. The large date range allows us to extrapolate trends well and further the recency of the data allows us to generate a good understanding of the present. We have a total of 3084 data points from the two beaches, 1370 and 1714 data points respectively. Each detailing the collectiondate, beachname, sitename, geometric location (given by longitude and latitude) and the e coli levels.
+
+(Summary stats)
+
+## Measurement
+E-coli is measured in MLN/100ml a measurement that reflects the ecoli particles in evey 100ml of lake water. For our data presentation log values are used to give a better visualisation of the data. To obtain an accurate representation of the beach as a whole 12 different locations here used to gather data across the 2 beaches as to remove bias that one testing location may result in. the result is that we obtain an unbiased representation of ecoli levels at each beach as a whole over more than a decade. Some missing data we encounter however is that although we have the collection date we do not observe the time that data was collected. Missing this data may lead to some bias as the time of day could impact the baseline levels of e-coli in the water. What this form of measurement does allow us to do is look at the differences in water quality at a date level, a figure() shows there is a good distribution of data from ach day of the week.
+
+# Methods
+Before we look at the daily differences in levels we will look at the data as a whole, observing the distribution of higher and lower levels of ecoli in the water across time as well as by beach.  Using canada.ca we observe that they define unsafe levels of ecoli in drinking water to ber 88ML/100ml. As such we will use this in our analysis to observe the frequency that “unsafe” levels are observed in the beach water. Finally we will look at these distributions over the course of a week to answer the question of when water quality is at its best, and as a lake swimmer when is it safest for me to swim at these beaches.
+
+# Results
+```{python}
+#| echo: false
+# Execute the external Python script
+with open("../code/model_generation/ecoli_scatter.py") as script_file:
+    exec(script_file.read())
+```
+
+Figure() displays our data as a whole, we see very widely distributed values of what could be considered high levels of e-coli from 2007 to 2016. We see the highest density of data at 10 MLN/100ml but on the higher end levels range from 1000 to 9000. Closer to the present we do not see as much variation on the higher end. In fact post 2017 the data groups either at the low level of 10 or at around 1000 almost exclusively. The variations observed appear to not vary by beach in figure.This is highlighted in the following figures where we see similar distributions of values when separating the data by beach. The following two figures alo highlight that the site locations appear in the data fairly randomly supporting that these different sites are not providing much bias.
+```{python}
+#| echo: false
+# Execute the external Python script
+with open("../code/model_generation/individual_beach_scatter.py") as script_file:
+    exec(script_file.read())
+```
+
+## Monthly data
+```{python}
+#| echo: false
+# Execute the external Python script
+#with open(f"../code/model_generation/monthly_summary.py") as script_file:
+#    exec(script_file.read())
+```
+
+Figure 4 looks at the monthly data at each beach, as mentioned in the data section only th summer months provide data due to the cold weather in toronto limiting available data in the winter. This data can still provide useful data. 
+```{python}
+#| echo: false
+# Execute the external Python script
+with open(f"../code/model_generation/monthly_ecoli.py") as script_file:
+    exec(script_file.read())
+```
+
+## Weekly Data
 
 ```{python}
 #| echo: false
@@ -8,49 +74,4 @@ with open(f"../code/model_generation/dow_bar.py") as script_file:
 ```
 
 
-```{python}
-#| echo: false
-# Execute the external Python script
-with open("../code/model_generation/individual_beach_scatter.py") as script_file:
-    exec(script_file.read())
-```
-
-```{python}
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from matplotlib.ticker import MaxNLocator
-
-# Sample data creation (replace this with your actual data)
-data = pd.read_csv("../data/cleaned_water_quality_data.csv")
-
-# Create a DataFrame
-df = pd.DataFrame(data)
-# Add a column for the day of the week
-df['day_of_week'] = df['collectiondate'].dt.day_name()
-
-# Days of the week order for plotting
-days_of_week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-
-# Create scatter plots for each day of the week
-for day in days_of_week:
-    # Filter data for the specific day of the week
-    day_df = df[df['day_of_week'] == day]
-    
-    # Create the scatter plot
-    plt.figure(figsize=(14, 7))
-    sns.scatterplot(data=day_df, x='collectiondate', y='ecoli', hue='beachname', palette='Set1', s=75, alpha=0.6)
-    plt.title(f'E. coli Levels Over Time - {day}', fontsize=16)
-    plt.xlabel('Collection Date', fontsize=14)
-    plt.ylabel('E. coli Level', fontsize=14)
-    plt.gca().xaxis.set_major_locator(MaxNLocator(nbins=8))
-    plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%b %Y'))
-    plt.xticks(rotation=45, ha='right')
-      # Log scale for better representation
-    plt.grid(visible=True, linestyle='--', linewidth=0.5, alpha=0.7)
-    plt.legend(title='Beach Name', loc='upper left', bbox_to_anchor=(1.05, 1))
-    plt.tight_layout()
-    plt.show()
-
-
-```
+# Conclusion
