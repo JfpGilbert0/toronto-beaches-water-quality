@@ -8,6 +8,7 @@ date: today
 date-format: long
 abstract: ""
 format: pdf
+jupyter: python3
 ---
 
 ```{python}
@@ -52,8 +53,9 @@ with open("../code/model_generation/individual_beach_scatter.py") as script_file
 ```{python}
 #| echo: false
 # Execute the external Python script
-#with open(f"../code/model_generation/monthly_summary.py") as script_file:
-#    exec(script_file.read())
+with open(f"../code/model_generation/monthly_summary.py") as script_file:
+    exec(script_file.read())
+summary
 ```
 
 Figure 4 looks at the monthly data at each beach, as mentioned in the data section only th summer months provide data due to the cold weather in toronto limiting available data in the winter. This data can still provide useful data. 
@@ -65,7 +67,13 @@ with open(f"../code/model_generation/monthly_ecoli.py") as script_file:
 ```
 
 ## Weekly Data
-
+```{python}
+#| echo: false
+# Execute the external Python script
+with open(f"../code/model_generation/weekly_summary.py") as script_file:
+    exec(script_file.read())
+summary
+```
 ```{python}
 #| echo: false
 # Execute the external Python script
