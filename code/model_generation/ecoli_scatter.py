@@ -7,7 +7,7 @@ import numpy as np
 from matplotlib.ticker import MaxNLocator
 
 # Import data
-data = pd.read_csv("data/cleaned_water_quality_data.csv")
+data = pd.read_csv("../data/cleaned_water_quality_data.csv")
 df = pd.DataFrame(data)
 
 # generate graph
@@ -34,9 +34,6 @@ plt.gca().yaxis.set_major_locator(MaxNLocator(nbins=10))
 
 plt.gca().xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%b %Y'))
 plt.legend(title='Beach Name', loc='upper left', bbox_to_anchor=(1.05, 1))
-
-
-
-plt.savefig("results/ecoli_levels_plot.png", dpi=300, bbox_inches='tight') 
+ 
 
 plt.show

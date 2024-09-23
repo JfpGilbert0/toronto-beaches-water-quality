@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Import data
-data = pd.read_csv("data/cleaned_water_quality_data.csv")
+data = pd.read_csv("../data/cleaned_water_quality_data.csv")
 df = pd.DataFrame(data)
 
-
+df['collectiondate'] = pd.to_datetime(df['collectiondate'])
 # Summary stats tables
 def create_counts(data):
     df = data
@@ -78,6 +78,8 @@ def main():
     
     with open("results/ecoli_stats.md", "w") as file:
         file.write(create_ecoli_stats(df))
+
+
 
 
 # Run the script

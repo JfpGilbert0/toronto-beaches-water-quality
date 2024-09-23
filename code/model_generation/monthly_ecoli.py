@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load data (ensure the path to your CSV is correct)
-data = pd.read_csv("data/cleaned_water_quality_data.csv")
+data = pd.read_csv("../data/cleaned_water_quality_data.csv")
 df = pd.DataFrame(data)
 
 # Ensure the collectiondate is in datetime format

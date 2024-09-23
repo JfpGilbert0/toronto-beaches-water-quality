@@ -7,6 +7,7 @@ from matplotlib.ticker import MaxNLocator
 data = pd.read_csv("../data/cleaned_water_quality_data.csv")
 df = pd.DataFrame(data)
 
+df['collectiondate'] = pd.to_datetime(df['collectiondate'])
 # Separate data by beach
 beach1_df = df[df['beachname'] == 'Sunnyside Beach']
 beach2_df = df[df['beachname'] == 'Marie Curtis Park East Beach']
