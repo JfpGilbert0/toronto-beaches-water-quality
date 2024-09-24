@@ -16,9 +16,15 @@ jupyter: python3
 # import dependancies
 import jupyter
 ```
+
 # Introduction
+Water contamination is important in Toronto, especially in the summer months as locals flock to the nearby beaches as the weather turns from snow to sun. E-coli testing is common at most public swimming locations as high levels highlight risk to those embarking into the water. While E-coli is unlikely to cause illness on it's own, If a water sample has high concentrations of E. coli, other more dangerous and infectious organisms may be present.(https://www.cleanlakesalliance.org/e-coli/). Thus the levels at public beaches can affect public health, and as such action should be taken on the results. To either close public beaches that exhibit unsafe levels, or continuation of previous action that has led to lower levels. 
+Despite these public health measures, there is limited understanding of the specific patterns of E. coli contamination in Toronto's beaches. Most public advisories and beach management decisions rely on reactive measures rather than proactive analysis of historical trends. This paper aims to fill this gap by examining historical E. coli data from Open Data Toronto, focusing on two of the city’s popular beaches: Sunnyside Beach and Marie Curtis Park East Beach. By analyzing data over several years, this study seeks to identify temporal patterns in contamination, such as variations by day of the week and season, to help answer the critical question: When are beachgoers at the highest risk of swimming in contaminated waters?
+Additionally, this analysis explores whether E. coli levels have shown improvement over time, informing on the effectiveness of current water management practices. Understanding the current and historic trends are paramount for city officials to understand if current water quality measures are sufficient. Or in the worse case, that interventions are needed in order to keep Toronto beaches safe for everyone.
+This paper is structured as follows: First, we present the dataset, describing its sources, key variables, and the data cleaning process. Next, we analyse patterns in E. coli levels, examining how contamination varies across different times and locations. We then discuss the implications of these findings for public health and beach management, followed by a conclusion that summarises the key insights and recommendations for future action. 
 
 ## Referencing
+In this paper, Python [] and it packages are utilized as the primary programming language for the following analysis and displaying the data. Key packages used include pandas [McKinney, 2010], which facilitated efficient data cleaning, manipulation, and summarization of the dataset, NumPy [Harris et al., 2020] was employed for numerical operations, Matplotlib [Hunter, 2007] and seaborn [Waskom, 2021] were critical for creating informative visualizations. 
 
 # Data
 
