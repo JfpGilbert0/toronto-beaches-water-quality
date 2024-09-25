@@ -73,10 +73,10 @@ def main():
     data = pd.read_csv("data/cleaned_water_quality_data.csv")
     df = pd.DataFrame(data)
 
-    with open("results/summary_table.md", "w") as file:
+    with open("results/tables/summary_table.md", "w") as file:
         file.write(create_counts(df))
     
-    with open("results/ecoli_stats.md", "w") as file:
+    with open("results/tables/ecoli_stats.md", "w") as file:
         file.write(create_ecoli_stats(df))
 
 

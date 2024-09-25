@@ -14,11 +14,13 @@ df['month'] = df['collectiondate'].dt.month_name()  # Extracts month in 'YYYY-MM
 
 # Group by month and calculate required statistics
 summary = df.groupby('month').agg(
-    number_of_datapoints=('ecoli', 'size'),
+    n=('ecoli', 'size'),
     average_ecoli=('ecoli', 'mean'),
     variance=('ecoli', 'var'),
-    number_of_points_above_100=('ecoli', lambda x: (x > 100).sum())
+    unsafe_levels=('ecoli', lambda x: (x > 100).sum())
 ).reset_index()
-
-# Display the summary table
-summary
+summary['percentage_unsafe'] = round((summary['unsafe_levels']/summary['n'])*100, 2)
+# order by month
+months = ['May', 'June', 'July', 'August', 'September']
+summary['month'] = pd.Categorical(summary['month'], categories=months, ordered=True)
+summary = summary.sort_values(by='month').reset_index(drop=True)

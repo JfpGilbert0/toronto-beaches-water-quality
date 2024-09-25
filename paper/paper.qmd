@@ -64,7 +64,9 @@ with open(f"../code/model_generation/monthly_summary.py") as script_file:
 summary
 ```
 
-Figure 4 looks at the monthly data at each beach, as mentioned in the data section only th summer months provide data due to the cold weather in toronto limiting available data in the winter. This data can still provide useful data. 
+Figure 4 looks at the monthly data at each beach, as mentioned in the data section only th summer months provide data due to the cold weather in toronto limiting available data in the winter. This data can still provide useful data.
+May exhibits the lowest average E. coli levels, at 101.76 MPN/100mL, which is just above the unsafe threshold. With only 6.16% of samples being unsafe. The low variance suggests that water quality is fairly consistent during this early summer month.
+August and July show extremely high avrages, above 500MPN/100ml, with over 30% of daa collected here showing water quality above acceptable levels.
 ```{python}
 #| echo: false
 # Execute the external Python script
@@ -80,6 +82,14 @@ with open(f"../code/model_generation/weekly_summary.py") as script_file:
     exec(script_file.read())
 summary
 ```
+Figure X summarises E. coli data by day of the week, including the total number of samples (n), average E. coli levels (average_ecoli), variance, the number of samples with unsafe levels (unsafe_levels), and the percentage of samples deemed unsafe (percentage_unsafe).
+The weekdays, Monday through Friday, see the highest average amounts of e-coli, as well as the higher probability that the water is deemed unsafe. Tuesday and Wednesday see average levels over 5x the 100 MPN/100ml unsafe , with relatively low variance highlighting these days as the worst for water quality over the course of a week. This point is further supported with both days having around 30% of their levels above the threshold.
+The weekend encounters the lowest levels by comparison, 134.91 MPN/100mL and 196.34 MPN/100mL on saturday and sunday respectively. with under 10% of tests having an unsafe result. This Is a positive sight as these days, it is assumed, encounter the most activity due to the 5 day work week.
+Figure() gives context to how the two beaches differ in their levels over the course of a week.
+Marie Curtis see's fairly consistent averages across the week, between 300 and 600 MPN/100ml. We still observe the lower average observed in the table here however it is far more significant at this location on Saturday compared to Sunday.
+As is clear from the graph we see significant differences in the average in the two locations. Sunnyside Beach shows extraordinarily high levels on Monday and Tuesday Compared to Marie Curtis. The rest of the weekdays we observe a fairly insignificant difference between the locations average level, but Sunnyside does appear to have a better average quality. The weekend we see the inverse to the start of the week, with Sunnyside having very low averages. In fact Sunday at Sunnyside is the only category here that has average levels below the safe threshold of 100 MPN/100ml.
+
+
 ```{python}
 #| echo: false
 # Execute the external Python script
