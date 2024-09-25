@@ -34,12 +34,14 @@ Opendatatoronto is a publicly available collection of wide ranges of data. This 
 (Summary stats)
 
 ## Measurement
-E-coli is measured in MLN/100ml a measurement that reflects the ecoli particles in evey 100ml of lake water. For our data presentation log values are used to give a better visualisation of the data. To obtain an accurate representation of the beach as a whole 12 different locations here used to gather data across the 2 beaches as to remove bias that one testing location may result in. the result is that we obtain an unbiased representation of ecoli levels at each beach as a whole over more than a decade. Some missing data we encounter however is that although we have the collection date we do not observe the time that data was collected. Missing this data may lead to some bias as the time of day could impact the baseline levels of e-coli in the water. What this form of measurement does allow us to do is look at the differences in water quality at a date level, a figure() shows there is a good distribution of data from ach day of the week.
+E-coli is measured in MLN/100ml a measurement that reflects the ecoli particles in evey 100ml of lake water. For our data presentation log values are used to give a better visualisation of the data. To obtain an accurate representation of the beach as a whole 12 different locations here used to gather data across the 2 beaches as to remove bias that one testing location may result in. the result is that we obtain an unbiased representation of ecoli levels at each beach as a whole over more than a decade. Some missing data we encounter however is that although we have the collection date we do not observe the time that data was collected. Missing this data may lead to some bias as the time of day could impact the baseline levels of e-coli in the water. What this form of measurement does allow us to do is look at the differences in water quality at a date level, a figure() shows there is a good distribution of data from each day of the week.
+Ther are some gaps in the data however, in ehe monthly data we only find rsults from the summer months. As during the summer the impact of water quality is at its highest this doesn't impact the usefulnss of the data, howevr it does result in missing context of levels during the rest of the year.
 
 # Methods
 Before we look at the daily differences in levels we will look at the data as a whole, observing the distribution of higher and lower levels of ecoli in the water across time as well as by beach.  Using canada.ca we observe that they define unsafe levels of ecoli in drinking water to ber 88ML/100ml. As such we will use this in our analysis to observe the frequency that “unsafe” levels are observed in the beach water. Finally we will look at these distributions over the course of a week to answer the question of when water quality is at its best, and as a lake swimmer when is it safest for me to swim at these beaches.
 
 # Results
+## Time Series
 ```{python}
 #| echo: false
 # Execute the external Python script
@@ -47,26 +49,39 @@ with open("../code/model_generation/ecoli_scatter.py") as script_file:
     exec(script_file.read())
 ```
 
-Figure() displays our data as a whole, we see very widely distributed values of what could be considered high levels of e-coli from 2007 to 2016. We see the highest density of data at 10 MLN/100ml but on the higher end levels range from 1000 to 9000. Closer to the present we do not see as much variation on the higher end. In fact post 2017 the data groups either at the low level of 10 or at around 1000 almost exclusively. The variations observed appear to not vary by beach in figure.This is highlighted in the following figures where we see similar distributions of values when separating the data by beach. The following two figures alo highlight that the site locations appear in the data fairly randomly supporting that these different sites are not providing much bias.
+Figure() displays our data as a whole, we see very widely distributed values of what could be considered high levels of e-coli from 2007 to 2016. We see the highest density of data at 10 MLN/100ml but on the higher end levels range from 1000 to 9000. Closer to the present we do not see as much variation on the higher end. In fact post 2017 the data groups either at the low level of 10 or at around 1000 almost exclusively. The variations observed appear to not vary by beach in figure. 
+
+Figure 1 is a scatter plot of E. coli levels over time by site and beach, and displays the data as a whole. It highlights the trends in contamination levels at Sunnyside Beach and Marie Curtis Park East Beach from 2008 to 2024.the beach site itself does not seem to significantly impact the overall trend of E. coli levels over time, as both Sunnyside and Marie Curtis Park East show similar patterns of fluctuation. the magnitude of the fluctuations ar very notable as prior to 2017 there are spikes in e-coli levels to many degrees, some extremely high. Whereas afer 2017 we see levels almost exclusivly sitting at 10 or around 1000 MNP/100ml. This appears to indicate that although the risks are persistant over time they are lessend in recent years. 
+
+Figure 2 is a bar chart illustrating the percentage of tests above the unsafe threshold by year, provides an important contrast to the scatter plot. Although the scatter plot suggests a reduction in extreme E. coli levels in the later years, this bar graph reveals that the frequency of tests exceeding the 100 MPN/100mL threshold does not diminish in the same way. Years such as 2010, 2011, 2019, and 2021 see substantial spikes in the percentage of unsafe tests, reaching as high as over 50% in 2010. We do not see percentages moving consitently in on direction other than after 2017 where the rates appear to be climbing. 2017 is a strang anomoly here with no tests returning unsafe results. The combination of these two graphs paint a clear picture of water quality in Toronto over the years.
+
 ```{python}
 #| echo: false
-# Execute the external Python script
-with open("../code/model_generation/individual_beach_scatter.py") as script_file:
+#| label: fig-2
+# Execute the external Python script for individual beach scatter plots
+with open("../code/model_generation/yearly_percentages.py") as script_file:
     exec(script_file.read())
 ```
+
+**Figure 2**: Bar graph reflecting the percentage of results each year where the water quality exceeds 100MPN/100ml. There is no obvious pattern here although in later years we see a trend upwards and rates appear to trend down until 2017 where the rate is 0.
 
 ## Monthly data
 ```{python}
 #| echo: false
-# Execute the external Python script
-with open(f"../code/model_generation/monthly_summary.py") as script_file:
+#| label: fig-3
+# Execute the external Python script for monthly summary statistics
+with open("../code/model_generation/monthly_summary.py") as script_file:
     exec(script_file.read())
 summary
 ```
 
-Figure 4 looks at the monthly data at each beach, as mentioned in the data section only th summer months provide data due to the cold weather in toronto limiting available data in the winter. This data can still provide useful data.
-May exhibits the lowest average E. coli levels, at 101.76 MPN/100mL, which is just above the unsafe threshold. With only 6.16% of samples being unsafe. The low variance suggests that water quality is fairly consistent during this early summer month.
-August and July show extremely high avrages, above 500MPN/100ml, with over 30% of daa collected here showing water quality above acceptable levels.
+**Figure 3**: Monthly summary statistics indicate May exhibits the lowest average E. coli levels, while July and August have the highest, with over 30% of samples deemed unsafe.
+
+Figure 4 looks at the monthly data at each beach, as mentioned in the data section only th summer months provide data due to the cold weather in toronto limiting available data in the winter. Further we see a disproportionate number of daa points in May and September, this could make the results here less reliable. However this data can still provide useful data. 
+May exhibits the lowest average E. coli levels, at 101.76 MPN/100mL, which is just above the unsafe threshold. With only 6.16% of samples being unsafe. The low variance suggests that water quality is fairly consistent during this early summer month. 
+August and July show extremely high averages, above 500MPN/100ml, with over 30% of daa collected here showing water quality above acceptable levels. Looking at figure() these high levels are consistent between both beaches, though we do observe extremely high average levels at Sunnyside.
+Overall, we see the average level aswell a the likelyhood of unsafe levels increase as the summer progresses and slighly taper off in september. Although the absence of a reasonable amount of data in September could contribute this increasing trend.
+
 ```{python}
 #| echo: false
 # Execute the external Python script
@@ -77,11 +92,15 @@ with open(f"../code/model_generation/monthly_ecoli.py") as script_file:
 ## Weekly Data
 ```{python}
 #| echo: false
-# Execute the external Python script
-with open(f"../code/model_generation/weekly_summary.py") as script_file:
+#| label: fig-5
+# Execute the external Python script for weekly summary statistics
+with open("../code/model_generation/weekly_summary.py") as script_file:
     exec(script_file.read())
 summary
 ```
+
+**Figure 5**: Weekly summary statistics show the highest E. coli levels and unsafe probabilities on weekdays, particularly Tuesday and Wednesday, with much lower levels observed on weekends.
+
 Figure X summarises E. coli data by day of the week, including the total number of samples (n), average E. coli levels (average_ecoli), variance, the number of samples with unsafe levels (unsafe_levels), and the percentage of samples deemed unsafe (percentage_unsafe).
 The weekdays, Monday through Friday, see the highest average amounts of e-coli, as well as the higher probability that the water is deemed unsafe. Tuesday and Wednesday see average levels over 5x the 100 MPN/100ml unsafe , with relatively low variance highlighting these days as the worst for water quality over the course of a week. This point is further supported with both days having around 30% of their levels above the threshold.
 The weekend encounters the lowest levels by comparison, 134.91 MPN/100mL and 196.34 MPN/100mL on saturday and sunday respectively. with under 10% of tests having an unsafe result. This Is a positive sight as these days, it is assumed, encounter the most activity due to the 5 day work week.
@@ -92,10 +111,15 @@ As is clear from the graph we see significant differences in the average in the 
 
 ```{python}
 #| echo: false
-# Execute the external Python script
-with open(f"../code/model_generation/dow_bar.py") as script_file:
+#| label: fig-6
+# Execute the external Python script for weekly E. coli levels by beach
+with open("../code/model_generation/dow_bar.py") as script_file:
     exec(script_file.read())
 ```
 
+**Figure 6**: E. coli levels by day of the week show significant differences between the two beaches, with Sunnyside exhibiting extraordinarily high levels on Monday and Tuesday compared to Marie Curtis.
+
 
 # Conclusion
+This analysis of E. coli contamination levels at Sunnyside Beach and Marie Curtis Park East Beach reveals critical insights into the patterns and trends of water quality in Toronto’s public swimming areas. While the data shows a reduction in the variability of E. coli levels in recent years, the frequency of unsafe readings remains concerning, particularly during peak summer months. The persistent risk highlighted by the bar graph indicates that ongoing contamination remains a public health challenge, despite efforts to improve water quality. Policy makers should improve their effors to reduce the number of days that water quality is unacceptable over the summer months.
+The months that are exhibiting the greates risk are..
