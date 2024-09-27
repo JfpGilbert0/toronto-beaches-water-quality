@@ -19,8 +19,12 @@ summary = df.groupby('day').agg(
 ).reset_index()
 summary.index = range(1,8)
 summary['percentage_unsafe'] = round((summary['unsafe_levels']/summary['n'])*100, 2)
+summary['variance'] = round(summary['variance'], 0)
+summary['average_ecoli']=round(summary['average_ecoli'], 0)
 # order by dow
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 summary['day'] = pd.Categorical(summary['day'], categories=days, ordered=True)
 summary = summary.sort_values(by='day').reset_index(drop=True)
-print(summary)
+
+with open("../results/tables/ecoli_day_of_week_table.md", "w") as file:
+        file.write(summary.to_csv())

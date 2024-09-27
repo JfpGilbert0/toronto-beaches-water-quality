@@ -20,7 +20,12 @@ summary = df.groupby('month').agg(
     unsafe_levels=('ecoli', lambda x: (x > 100).sum())
 ).reset_index()
 summary['percentage_unsafe'] = round((summary['unsafe_levels']/summary['n'])*100, 2)
+summary['variance'] = round(summary['variance'], 0)
+summary['average_ecoli']=round(summary['average_ecoli'], 0)
 # order by month
 months = ['May', 'June', 'July', 'August', 'September']
 summary['month'] = pd.Categorical(summary['month'], categories=months, ordered=True)
 summary = summary.sort_values(by='month').reset_index(drop=True)
+
+with open("../results/tables/ecoli_monthly_table.md", "w") as file:
+        file.write(summary.to_csv())

@@ -11,11 +11,14 @@ df['collectiondate'] = pd.to_datetime(df['collectiondate'], errors='coerce', for
 
 # Add a column for the day of the week
 df['month'] = df['collectiondate'].dt.month_name()
-
+df = df.loc[df['collectiondate'] > '2017-12-31']
 # Group by day of the week and beachname, then calculate average E. coli levels
 average_ecoli = df.groupby(['month', 'beachname'])['ecoli'].mean().reset_index()
 
-# Sort days of the week in the typical order
+# Sort the months
+month_order = ['May', 'June', 'July', 'August', 'September']
+average_ecoli['month'] = pd.Categorical((average_ecoli)['month'], categories=month_order, ordered=True)
+average_ecoli = average_ecoli.sort_values(by='month').reset_index(drop=True)
 
 
 # Create the bar chart
@@ -28,4 +31,7 @@ plt.xticks(rotation=45)
 plt.grid(axis='y', linestyle='--', linewidth=0.5, alpha=0.7)
 plt.legend(title='Beach Name', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.tight_layout()
+
+plt.savefig('../results/figures/ecoli_monthly.png', dpi=300, bbox_inches='tight')
+
 plt.show()
